@@ -1,0 +1,84 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="site-header">
+  <a class="logo-link" href={base} aria-label="NerdyDeal home">
+    <span class="logo-mark">ND</span>
+    <span class="logo-text">NerdyDeal</span>
+  </a>
+
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href={base}>Home</a>
+    <a href={`${base}posts/weird-desk-gadgets/`}>Latest Finds</a>
+    <a href={`${base}affiliate-disclosure/`}>Disclosure</a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #f7f2ff;
+    text-decoration: none;
+    font-weight: 950;
+  }
+
+  .logo-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: #ffd84d;
+    color: #181225;
+    font-size: 0.95rem;
+    letter-spacing: -0.05em;
+    box-shadow: 0 12px 30px rgba(255, 216, 77, 0.22);
+  }
+
+  .logo-text {
+    font-size: 1.35rem;
+    letter-spacing: -0.06em;
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .main-nav a {
+    color: #ddd7f3;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+
+  .main-nav a:hover {
+    color: #ffd84d;
+  }
+
+  @media (max-width: 720px) {
+    .site-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .main-nav {
+      gap: 14px;
+    }
+  }
+</style>

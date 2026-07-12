@@ -1,0 +1,115 @@
+---
+const base = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-logo">NerdyDeal</p>
+      <p>
+        Weird useful finds, nerd gear, desk gadgets, gaming accessories, DND loot,
+        PC build ideas, and products that make your cart whisper, “be irresponsible.”
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h2>Explore</h2>
+      <a href={base}>Home</a>
+      <a href={`${base}posts/weird-desk-gadgets/`}>Latest Finds</a>
+    </div>
+
+    <div class="footer-section">
+      <h2>Trust</h2>
+      <a href={`${base}affiliate-disclosure/`}>Affiliate Disclosure</a>
+      <a href={`${base}privacy-policy/`}>Privacy Policy</a>
+    </div>
+
+    <div class="footer-section">
+      <h2>Notes</h2>
+      <p>
+        NerdyDeal may earn from qualifying purchases. We do not claim hands-on
+        testing unless a guide clearly says we tested it ourselves.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© {year} NerdyDeal. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 72px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(7, 8, 20, 0.55);
+  }
+
+  .footer-inner {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 42px 0;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr 1fr 1.3fr;
+    gap: 32px;
+  }
+
+  .footer-logo {
+    margin: 0 0 12px;
+    color: #ffd84d;
+    font-size: 1.4rem;
+    font-weight: 950;
+    letter-spacing: -0.06em;
+  }
+
+  .footer-brand p,
+  .footer-section p,
+  .footer-bottom p {
+    color: #bfb8d8;
+    line-height: 1.65;
+  }
+
+  .footer-section h2 {
+    margin: 0 0 14px;
+    color: #fff7c7;
+    font-size: 1rem;
+  }
+
+  .footer-section a {
+    display: block;
+    width: fit-content;
+    margin: 10px 0;
+    color: #ddd7f3;
+    text-decoration: none;
+    font-weight: 800;
+  }
+
+  .footer-section a:hover {
+    color: #ffd84d;
+  }
+
+  .footer-bottom {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 18px 0 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 860px) {
+    .footer-inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
