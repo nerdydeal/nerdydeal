@@ -4,9 +4,14 @@ const base = import.meta.env.BASE_URL;
 
 <header class="site-header">
   <a class="logo-link" href={base} aria-label="NerdyDeal home">
-    <span class="logo-mark">ND</span>
-    <span class="logo-text">NerdyDeal</span>
-  </a>
+  <img
+    class="site-logo"
+    src={`${base}nerdydeal-logo.png`}
+    alt="NerdyDeal"
+    width="300"
+    height="208"
+  />
+</a>
 
   <nav class="main-nav" aria-label="Main navigation">
     <a href={base}>Home</a>
@@ -35,22 +40,11 @@ const base = import.meta.env.BASE_URL;
     font-weight: 950;
   }
 
-  .logo-mark {
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    display: grid;
-    place-items: center;
-    background: #ffd84d;
-    color: #181225;
-    font-size: 0.95rem;
-    letter-spacing: -0.05em;
-    box-shadow: 0 12px 30px rgba(255, 216, 77, 0.22);
-  }
-
-  .logo-text {
-    font-size: 1.35rem;
-    letter-spacing: -0.06em;
+    .site-logo {
+    display: block;
+    width: 172px;
+    height: auto;
+    filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.45));
   }
 
   .main-nav {
@@ -68,7 +62,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   .main-nav a:hover {
-    color: #ffd84d;
+    color: #d90000;
   }
 
   @media (max-width: 720px) {
