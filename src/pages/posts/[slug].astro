@@ -1,0 +1,124 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`${post.data.title} | NerdyDeal`} description={post.data.description}>
+  <main class="article-page">
+    <a class="back-link" href={`${base}/`}>← Back to NerdyDeal</a>
+
+    <article>
+      <p class="eyebrow">{post.data.category}</p>
+      <h1>{post.data.title}</h1>
+
+      <p class="lede">{post.data.description}</p>
+
+      <p class="disclosure">
+        Affiliate disclosure: NerdyDeal may earn from qualifying purchases through
+        affiliate links, including Amazon Associates links.
+      </p>
+
+      <div class="content">
+        <Content />
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .article-page {
+    width: min(900px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 48px 0 72px;
+  }
+
+  .back-link {
+    color: #d90000;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: #ffffff;
+  }
+
+  article {
+    margin-top: 42px;
+  }
+
+  .eyebrow {
+    color: #d90000;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  h1 {
+    margin: 0 0 24px;
+    font-size: clamp(3rem, 8vw, 6.8rem);
+    line-height: 0.9;
+    letter-spacing: -0.075em;
+  }
+
+  .lede {
+    color: #f4f4f4;
+    font-size: clamp(1.2rem, 2vw, 1.45rem);
+    line-height: 1.65;
+  }
+
+  .disclosure {
+    padding: 16px 18px;
+    border: 1px solid rgba(217, 0, 0, 0.35);
+    border-radius: 18px;
+    background: rgba(217, 0, 0, 0.08);
+    color: #c9c9c9;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .content {
+    margin-top: 42px;
+  }
+
+  .content :global(h2) {
+    margin-top: 42px;
+    color: #f4f4f4;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .content :global(h3) {
+    margin-top: 28px;
+    color: #ffffff;
+  }
+
+  .content :global(p),
+  .content :global(li) {
+    color: #d8d8d8;
+    line-height: 1.75;
+    font-size: 1.08rem;
+  }
+
+  .content :global(strong) {
+    color: #d90000;
+  }
+
+  .content :global(ul) {
+    padding-left: 1.25rem;
+  }
+</style>
