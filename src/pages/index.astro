@@ -1,45 +1,18 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const base = import.meta.env.BASE_URL;
 
-const latestPosts = [
-  {
-    title: "10 Weird Desk Gadgets That Actually Make Sense",
-    description:
-      "Odd little desk upgrades that are useful, conversation-worthy, and not just plastic clutter wearing a fake mustache.",
-    href: `${base}/posts/weird-desk-gadgets/`,
-    category: "Desk Gadgets",
-  },
-  {
-    title: "Best Mini PCs for a Home AI Server in 2026",
-    description:
-      "A practical guide for running local AI, media tools, automation, and home-server experiments without building a furnace.",
-    href: "#",
-    category: "Home Tech",
-  },
-  {
-    title: "DND Gifts That Are Actually Useful at the Table",
-    description:
-      "Dice towers, initiative trackers, spell tools, and tabletop gear that will not be banished to the junk drawer.",
-    href: "#",
-    category: "DND",
-  },
-  {
-    title: "Gaming Desk Accessories That Pull Their Weight",
-    description:
-      "Useful upgrades for cleaner setups, better cable control, and a desk that feels less like a dragon nest.",
-    href: "#",
-    category: "Gaming",
-  },
-  {
-    title: "Weird Finds Under $25 That Feel Illegal to Ignore",
-    description:
-      "Small, strange, useful products that scratch the ancient bargain-hunter part of the brain.",
-    href: "#",
-    category: "Weird Finds",
-  },
-];
+const latestPosts = (await getCollection("posts", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5)
+  .map((post) => ({
+    title: post.data.title,
+    description: post.data.description,
+    href: `${base}/posts/${post.id}/`,
+    category: post.data.category,
+  }));
 ---
 
 <BaseLayout>
