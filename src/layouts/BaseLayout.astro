@@ -7,7 +7,7 @@ const {
   description = "NerdyDeal finds weird useful products, nerdy gear, desk gadgets, PC build ideas, DND finds, gaming accessories, anime gifts, and oddly specific stuff worth buying.",
 } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <!doctype html>

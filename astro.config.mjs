@@ -3,6 +3,5 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nerdydeal.github.io',
-  base: '/nerdydeal',
+  site: 'https://nerdydeal.com',
 });
