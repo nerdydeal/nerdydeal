@@ -1,0 +1,177 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map((post) => ({
+    title: post.data.title,
+    description: post.data.description,
+    href: `${base}/posts/${post.id}/`,
+    category: post.data.category,
+    pubDate: post.data.pubDate,
+    tags: post.data.tags,
+  }));
+---
+
+<BaseLayout
+  title="Latest Finds | NerdyDeal"
+  description="Browse the latest NerdyDeal posts, weird useful finds, desk gadgets, PC gear, gaming accessories, DND loot, and oddly specific products worth buying."
+>
+  <main class="posts-page">
+    <section class="hero">
+      <p class="eyebrow">Latest Finds</p>
+      <h1>The NerdyDeal Shelf</h1>
+      <p class="lede">
+        Fresh weird finds, useful desk gadgets, nerd gear, PC setup ideas, tabletop
+        loot, and products that make your cart start whispering.
+      </p>
+    </section>
+
+    <section class="post-grid" aria-label="All posts">
+      {posts.map((post) => (
+        <article class="post-card">
+          <p class="post-category">{post.category}</p>
+
+          <h2>
+            <a href={post.href}>{post.title}</a>
+          </h2>
+
+          <p class="post-date">
+            {post.pubDate.toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
+
+          <p>{post.description}</p>
+
+          {post.tags.length > 0 && (
+            <div class="tags" aria-label="Post tags">
+              {post.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .posts-page {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 56px 0 72px;
+  }
+
+  .hero {
+    max-width: 860px;
+    padding: 44px 0 54px;
+  }
+
+  .eyebrow {
+    color: #d90000;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: 0.88;
+    letter-spacing: -0.08em;
+  }
+
+  .lede {
+    margin-top: 24px;
+    color: #d8d8d8;
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    line-height: 1.6;
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .post-card {
+    padding: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.055);
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.18);
+  }
+
+  .post-category {
+    margin: 0 0 12px;
+    color: #d90000;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.55rem;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+
+  h2 a {
+    color: #f4f4f4;
+    text-decoration: none;
+  }
+
+  h2 a:hover {
+    color: #d90000;
+  }
+
+  .post-date {
+    margin: 14px 0 0;
+    color: #9f9f9f;
+    font-size: 0.95rem;
+    font-weight: 800;
+  }
+
+  .post-card p {
+    color: #d8d8d8;
+    line-height: 1.65;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .tags span {
+    padding: 7px 10px;
+    border: 1px solid rgba(217, 0, 0, 0.35);
+    border-radius: 999px;
+    color: #f4f4f4;
+    background: rgba(217, 0, 0, 0.08);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  @media (max-width: 900px) {
+    .post-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
