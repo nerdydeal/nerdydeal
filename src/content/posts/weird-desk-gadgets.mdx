@@ -5,12 +5,14 @@ pubDate: 2026-07-12
 category: "Desk Gadgets"
 tags:
   - desk gadgets
-  - weird finds
+  - weird finds## 1. A desktop status light
   - workspace
   - tech accessories
 featured: true
 draft: false
 ---
+
+import ProductCard from "../../components/ProductCard.astro";
 
 Decorative desk stuff is usually useless. Productive desk stuff is usually ugly. These are the rare little oddballs that can start a conversation and still do an actual job.
 
@@ -26,11 +28,24 @@ To belong on this list, a desk gadget needs to pass at least one of these tests:
 - It solves a real problem in an oddly specific way.
 - It is fun enough to keep around but useful enough to justify.
 
-## 1. A desktop status light
-
-A small status light can show whether you are busy, recording, in a meeting, or mentally fighting a dragon. Useful for remote workers, streamers, creators, and anyone whose family treats headphones as a decorative suggestion.
-
-**Product links coming soon.**
+<ProductCard
+  number="01"
+  name="A desktop status light"
+  bestFor="remote workers, streamers, and focus-mode goblins"
+  description="A small status light can show whether you are busy, recording, in a meeting, or mentally fighting a dragon. Useful for remote workers, streamers, creators, and anyone whose family treats headphones as a decorative suggestion."
+  pros={[
+    "Makes your availability obvious without another app",
+    "Useful for calls, streaming, recording, or deep work",
+    "Adds a little command-center energy to a desk setup"
+  ]}
+  cons={[
+    "Some models need companion software",
+    "Can be overkill if you work alone"
+  ]}
+  priceNote="Product link coming soon"
+  buttonText="Coming soon"
+  url="#"
+/>
 
 ## 2. A mini desktop vacuum
 
