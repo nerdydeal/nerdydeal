@@ -3,7 +3,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <header class="site-header">
-  <a class="logo-link" href={base} aria-label="NerdyDeal home">
+  <a class="logo-link" href={`${base}/`} aria-label="NerdyDeal home">
   <img
     class="site-logo"
     src={`${base}/nerdydeal-logo.png`}
@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 </a>
 
   <nav class="main-nav" aria-label="Main navigation">
-    <a href={base}>Home</a>
+    <a href={`${base}/`}>Home</a>
     <a href={`${base}/posts/`}>Latest Finds</a>
     <a href={`${base}/affiliate-disclosure/`}>Disclosure</a>
   </nav>
