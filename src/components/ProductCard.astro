@@ -10,6 +10,8 @@ const {
   buttonText = "Check price",
   url = "#",
 } = Astro.props;
+
+const hasRealUrl = url && url !== "#";
 ---
 
 <article class="product-card">
@@ -48,7 +50,9 @@ const {
 
   <div class="product-action">
     <p>{priceNote}</p>
-    <a href={url} rel="sponsored nofollow" target="_blank">{buttonText}</a>
+    {hasRealUrl && (
+      <a href={url} rel="sponsored nofollow" target="_blank">{buttonText}</a>
+    )}
   </div>
 
   <p class="affiliate-note">
