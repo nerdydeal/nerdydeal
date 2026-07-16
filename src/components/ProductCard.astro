@@ -7,68 +7,121 @@ const {
   pros = [],
   cons = [],
   priceNote = "Check current price",
-  buttonText = "Check price",
+  buttonText = "Check price on Amazon",
   url = "#",
+  asin = "",
+  image = "",
+  imageAlt = "",
 } = Astro.props;
 
 const hasRealUrl = url && url !== "#";
+const hasImage = Boolean(image);
+const safeImageAlt = imageAlt || name || "Product image";
 ---
 
-<article class="product-card">
-  {number && <p class="product-number">{number}</p>}
-
-  <div class="product-heading">
-    <div>
-      <h2>{name}</h2>
-      {bestFor && <p class="best-for">Best for: {bestFor}</p>}
-    </div>
-  </div>
-
-  <p class="description">{description}</p>
-
-  {(pros.length > 0 || cons.length > 0) && (
-    <div class="product-lists">
-      {pros.length > 0 && (
-        <div>
-          <h3>Why it works</h3>
-          <ul>
-            {pros.map((item) => <li>{item}</li>)}
-          </ul>
-        </div>
-      )}
-
-      {cons.length > 0 && (
-        <div>
-          <h3>Watch-outs</h3>
-          <ul>
-            {cons.map((item) => <li>{item}</li>)}
-          </ul>
-        </div>
-      )}
+<article class="product-card" data-asin={asin || undefined}>
+  {hasImage && (
+    <div class="product-image-wrap">
+      <img
+        class="product-image"
+        src={image}
+        alt={safeImageAlt}
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   )}
 
-  <div class="product-action">
-    <p>{priceNote}</p>
-    {hasRealUrl && (
-      <a href={url} rel="sponsored nofollow" target="_blank">{buttonText}</a>
-    )}
-  </div>
+  <div class="product-content">
+    {number && <p class="product-number">{number}</p>}
 
-  <p class="affiliate-note">
-    Affiliate note: NerdyDeal may earn from qualifying purchases.
-  </p>
+    <div class="product-heading">
+      <div>
+        <h2>{name}</h2>
+        {bestFor && <p class="best-for">Best for: {bestFor}</p>}
+      </div>
+    </div>
+
+    {description && <p class="description">{description}</p>}
+
+    {(pros.length > 0 || cons.length > 0) && (
+      <div class="product-lists">
+        {pros.length > 0 && (
+          <div>
+            <h3>Why it works</h3>
+            <ul>
+              {pros.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {cons.length > 0 && (
+          <div>
+            <h3>Watch-outs</h3>
+            <ul>
+              {cons.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+    )}
+
+    <div class="product-action">
+      <p>{priceNote}</p>
+
+      {hasRealUrl && (
+        <a
+          href={url}
+          rel="sponsored nofollow noopener"
+          target="_blank"
+        >
+          {buttonText}
+        </a>
+      )}
+    </div>
+
+    <p class="affiliate-note">
+      Affiliate note: NerdyDeal may earn from qualifying purchases.
+    </p>
+  </div>
 </article>
 
 <style>
   .product-card {
     margin: 34px 0;
-    padding: 28px;
+    overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 24px;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.07),
+        rgba(255, 255, 255, 0.035)
+      );
     box-shadow: 0 20px 70px rgba(0, 0, 0, 0.22);
+  }
+
+  .product-image-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .product-image {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    max-height: 360px;
+    object-fit: contain;
+    border-radius: 16px;
+  }
+
+  .product-content {
+    padding: 28px;
   }
 
   .product-number {
@@ -106,6 +159,10 @@ const hasRealUrl = url && url !== "#";
   .affiliate-note {
     color: #d8d8d8;
     line-height: 1.7;
+  }
+
+  .description {
+    margin: 20px 0 0;
   }
 
   .product-lists {
@@ -159,6 +216,11 @@ const hasRealUrl = url && url !== "#";
     background: #ff1d1d;
   }
 
+  .product-action a:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+  }
+
   .affiliate-note {
     margin: 18px 0 0;
     font-size: 0.9rem;
@@ -166,6 +228,15 @@ const hasRealUrl = url && url !== "#";
   }
 
   @media (max-width: 680px) {
+    .product-content {
+      padding: 22px;
+    }
+
+    .product-image-wrap {
+      min-height: 200px;
+      padding: 18px;
+    }
+
     .product-lists {
       grid-template-columns: 1fr;
     }
